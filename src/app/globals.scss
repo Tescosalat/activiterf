@@ -1,12 +1,21 @@
+$primary: #26DFD0;
+$secondary: #F62AA0;
+$light: #B8EE30;
+$dark: #B4B4B3;
+
+
 p {
   font-family: var(--roboto-font);
-  font-size: 18px;
+  font-size: 18px; 
 }
 
 h1 {
   font-family: var(--bebas-font);
-  font-size: 30px;
+  font-size: 30px; 
 }
+
+
+
 
 img, picture, video, canvas, svg {
   display: block;
@@ -26,7 +35,7 @@ html, body {
 }
 
 body {
-  line-height: 1, 5;
+  line-height: 1,5;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -36,4 +45,4 @@ input, button, textarea, select {
 
 p, h1, h2, h3, h4, h5 {
   overflow-wrap: break-word;
-}/*# sourceMappingURL=globals.css.map */
+}
