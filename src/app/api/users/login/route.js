@@ -1,5 +1,5 @@
-import { connect } from "../../../dbConfig/dbConfig";
-import User from "../../../model/userModel"
+import { connect } from "../../../../dbConfig/dbConfig";
+import User from "../../../../model/userModel"
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs"
 import jwt from "jsonwebtoken"
@@ -8,11 +8,25 @@ connect()
 
 
 export async function POST(request) {
-    try {
-       const reqBody = await request.json()
-       const {email, password} = reqBody
+   const isEmail = (usernameEmail) => {
+      for (let i = 0; i<usernameEmail.length; i++) {
+         if (usernameEmail[i] === "@") {
+            return true
+         } 
+      }
+      return false
+    }
+   
 
-       const user = await User.findOne({email})
+    try {
+      const reqBody = await request.json()
+      const {username, password} = reqBody
+      const emailResult = isEmail(username)
+       
+       const user = await User.findOne(
+         emailResult ? {email: username} : {username: username}
+       );
+       
        if(!user){
         return NextResponse.json({error: "User does not exist"}, {status: 400})
        }

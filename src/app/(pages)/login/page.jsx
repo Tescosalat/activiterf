@@ -7,13 +7,14 @@ import axios from "axios"
 import { useRouter } from 'next/navigation'
 import { AiOutlineUser } from 'react-icons/ai';
 import { MdKey } from 'react-icons/md';
-import "./login.css"
+import "./loginSign.css"
+
 
 
 export default function LoginPage() {
     const router = useRouter()
     const [user, setUser] = useState({
-        email: "",
+        username: "",
         password: "",
     })
 
@@ -29,11 +30,12 @@ try {
 }
 
 
-
     return (
         <article>
-             <div className="container">
-            <h1>Login</h1>
+            <img src="/images/back.png" alt="" className="back" draggable="false"/>
+            
+<div className="container">
+           <img src="/images/logo.png" alt="" className="logol" draggable="false"/>
             
 
           <div className="input">
@@ -42,11 +44,11 @@ try {
             </div>
          
           <input 
-            id="email" 
-            type="email"
-            value={user.email}
-            onChange={(e) => setUser({...user, email: e.target.value})} 
-            placeholder="email"
+            id="username" 
+            type="text"
+            value={user.username}
+            onChange={(e) => setUser({...user, username: e.target.value})} 
+            placeholder="name"
         />
           </div>
        
@@ -66,17 +68,23 @@ try {
 </div>
       
 
-
-
-        <button
+<div className="buttonBack">
+<button className="buttonLogin"
         onClick={onLogin}
         >
             sign in
         </button>
+</div>
+       
 
-        <Link href="/signup">Signup</Link>
-
+        <span>Don't have an account yet ?&nbsp;&nbsp;&nbsp; <Link href="/signup" className="sign">Signup</Link></span>
         </div>
+
+          
+            
+           
+
+      
         </article>
        
     )

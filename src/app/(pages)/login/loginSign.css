@@ -1,0 +1,229 @@
+p {
+  font-family: var(--roboto-font);
+  font-size: 18px;
+}
+
+h1 {
+  font-family: var(--bebas-font);
+  font-size: 30px;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  line-height: 1, 5;
+  -webkit-font-smoothing: antialiased;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+p, h1, h2, h3, h4, h5 {
+  overflow-wrap: break-word;
+}
+
+article {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  border-radius: 20px;
+  background-color: white;
+  box-shadow: 0px 3px 10px rgba(85, 85, 85, 0.789);
+  z-index: 2;
+}
+
+.logol {
+  width: 100px;
+  margin-bottom: 20px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+h1 {
+  margin: 10px;
+  color: #419197;
+  font-size: 40px;
+}
+
+.input {
+  display: flex;
+  align-items: center;
+  border: 2px solid #172a38;
+  margin: 5px;
+  border-radius: 10px;
+}
+.input:hover {
+  cursor: text;
+}
+.input input {
+  border: none;
+  background: transparent;
+  height: 40px;
+  width: 200px;
+}
+.input input::-moz-placeholder {
+  color: #172a38;
+}
+.input input::placeholder {
+  color: #172a38;
+}
+.input input:focus {
+  outline: none;
+}
+.input .icon {
+  margin: 5px 5px 5px 10px;
+  color: #172a38;
+}
+
+input[type=file] {
+  display: none;
+}
+
+.inputB {
+  cursor: pointer;
+  color: #172a38;
+  display: flex;
+  align-items: center;
+  border: none;
+  background: transparent;
+  height: 40px;
+  width: 230px;
+}
+
+.inputUpload {
+  display: flex;
+  align-items: center;
+  border: 2px solid #172a38;
+  margin: 5px;
+  border-radius: 10px;
+  transition-duration: 100ms;
+}
+.inputUpload:hover {
+  transform: scale(1.05);
+}
+.inputUpload:active {
+  transform: scale(1);
+}
+
+.icon2 {
+  margin: 5px 5px 5px 10px;
+  color: #172a38;
+}
+
+.buttonBack {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 46px;
+  padding: 3px;
+  background-image: linear-gradient(45deg, #79E0EE 20%, #F11A7B 50%, #79E0EE 90%);
+  background-size: 200%;
+  background-position: left;
+  border-radius: 13px;
+  margin: 20px 10px;
+  transition: background-position 300ms ease-in-out, transform 100ms ease-in-out;
+}
+.buttonBack:hover {
+  background-position: right;
+}
+.buttonBack:active {
+  transform: scale(0.98);
+}
+.buttonBack .buttonLogin {
+  padding: 0 25px;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  background-color: white;
+}
+.buttonBack .buttonLogin:hover {
+  cursor: pointer;
+}
+
+.buttonBackReg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 46px;
+  padding: 3px;
+  background-image: linear-gradient(45deg, #F11A7B 20%, #79E0EE 50%, #F11A7B 90%);
+  background-size: 200%;
+  background-position: left;
+  border-radius: 13px;
+  margin: 20px 10px;
+  transition: background-position 300ms ease-in-out, transform 100ms ease-in-out;
+}
+.buttonBackReg:hover {
+  background-position: right;
+}
+.buttonBackReg:active {
+  transform: scale(0.98);
+}
+.buttonBackReg .buttonLogin {
+  padding: 0 25px;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  background-color: white;
+}
+.buttonBackReg .buttonLogin:hover {
+  cursor: pointer;
+}
+
+span {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  color: gray;
+}
+
+.sign {
+  color: #172a38;
+  text-decoration: none;
+}
+.sign:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.back {
+  position: absolute;
+  z-index: 0;
+  width: 800px;
+}
+
+.back2 {
+  position: absolute;
+  z-index: 0;
+  width: 800px;
+  transform: translate(-30px, -50px);
+}/*# sourceMappingURL=loginSign.css.map */

@@ -1,7 +1,12 @@
-$primary: #26DFD0;
-$secondary: #F62AA0;
-$light: #B8EE30;
-$dark: #B4B4B3;
+$primaryDark: #172a38;
+$primaryLight: #F5FCCD;
+$secondaryDark: #419197;
+$secondaryLight: #78D6C6;
+$lightGray: rgb(243, 243, 243);
+$darkGray: rgb(229, 229, 229);
+$shadow: rgba(85, 85, 85, 0.789);
+$vibrant1: #79E0EE;
+$vibrant2: #F11A7B;
 
 
 p {
@@ -37,6 +42,7 @@ html, body {
 body {
   line-height: 1,5;
   -webkit-font-smoothing: antialiased;
+  
 }
 
 input, button, textarea, select {
@@ -46,3 +52,4 @@ input, button, textarea, select {
 p, h1, h2, h3, h4, h5 {
   overflow-wrap: break-word;
 }
+

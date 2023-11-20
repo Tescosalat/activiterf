@@ -1,50 +1,106 @@
 "use client"
 
 import Link from "next/link"
-import React, { useState } from "react"
-import { useRouter } from 'next/navigation'
+import React, { useEffect, useState } from "react"
+import { usePathname } from 'next/navigation' 
 import axios from "axios"
+import { storage } from "../../../../firebaseDb"; 
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { useRouter } from 'next/navigation'
+import { AiOutlineUser } from 'react-icons/ai';
+import { MdKey } from 'react-icons/md';
+import { BsFillEnvelopeFill } from 'react-icons/bs';
+import { MdAddPhotoAlternate } from 'react-icons/md';
+import "../login/loginSign.css"
 
 
-export default function SignupPage() {
-    const router = useRouter()
-    const [user, setUser] = useState({
-        email: "",
-        password: "",
-        username: "",
-        image: "",
-    })
+
+export default function LoginPage() {
+  const router = useRouter()
+  const [image, setImage] = useState(null);
+  const [user, setUser] = useState({
+      email: "",
+      password: "",
+      username: "",
+      image: "",
+  })
+
+  const onSignup = async () => {
+    try {
+      if (!image) {
+        console.log("Please select an image.");
+        return;
+      }
   
+      const storageRef = ref(storage, `profile-pictures/${image.name}`);
+      await uploadBytes(storageRef, image);
+      const imageUrl = await getDownloadURL(storageRef);
+  
+      const userData = {
+        email: user.email,
+        password: user.password,
+        username: user.username,
+        image: imageUrl,
+      };
+  
+      await axios.post("/api/users/signup", userData);
+  
+      router.push("/login");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
-const onSignup = async () => {
-try {
 
-   const response = await axios.post("/api/users/signup", user)
-   router.push("/login")
-    
-} catch (error) {
-    console.log(error.message)
-} 
+const handleImageChange = (e) => {
+const file = e.target.files[0];
+setImage(file);
+};
 
-
-}
 
 
     return (
-        <div>
-            <h1>signup</h1>
-            <hr />
-            <label htmlFor="username">username</label>
-        <input 
+        <article>
+            <img src="/images/back2.png" alt="" className="back2" draggable="false"/>
+            
+<div className="container">
+           <img src="/images/logo.png" alt="" className="logol" draggable="false"/>
+            
+           <label htmlFor="username" className="input">
+    <div className="icon">
+    <AiOutlineUser />
+    </div>
+    <input 
             id="username" 
             type="text"
-            value={user.name}
+            value={user.username}
             onChange={(e) => setUser({...user, username: e.target.value})} 
             placeholder="username"
         />
+</label>
+           
 
-<label htmlFor="password">password</label>
-        <input 
+          <div className="input">
+            <div className="icon">
+            <BsFillEnvelopeFill />
+            </div>
+         
+          <input 
+            id="email" 
+            type="email"
+            value={user.email}
+            onChange={(e) => setUser({...user, email: e.target.value})} 
+            placeholder="email"
+        />
+          </div>
+       
+         
+
+<div className="input">
+    <div className="icon">
+    <MdKey />
+    </div>
+<input 
             id="password" 
             type="password"
             value={user.password}
@@ -52,31 +108,36 @@ try {
             placeholder="password"
         />
 
-<label htmlFor="email">email</label>
-        <input 
-            id="email" 
-            type="email"
-            value={user.email}
-            onChange={(e) => setUser({...user, email: e.target.value})} 
-            placeholder="email"
-        />
+        
 
-<input 
-            id="image" 
-            type="text"
-            value={user.image}
-            onChange={(e) => setUser({...user, image: e.target.value})} 
-            placeholder="image"
-        />
+</div>
 
-        <button
+
+
+<div className="inputUpload">
+    <input id="uploadButton" type="file" accept="image/*" onChange={handleImageChange} />
+<label className="inputB" htmlFor="uploadButton"><div className="icon2"><MdAddPhotoAlternate />
+  </div>profile photo</label></div>
+
+
+<div className="buttonBackReg">
+<button className="buttonLogin"
         onClick={onSignup}
         >
-            Signup
+            Register Now
         </button>
+</div>
+       
 
-        <Link href="/login">login</Link>
-
+        <span>Don't have an account yet ?&nbsp;&nbsp;&nbsp; <Link href="/login" className="sign">Login</Link></span>
         </div>
+
+          
+            
+           
+
+      
+        </article>
+       
     )
 }
