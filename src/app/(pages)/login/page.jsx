@@ -17,6 +17,11 @@ export default function LoginPage() {
         username: "",
         password: "",
     })
+    const [wrongLogin, setWrongLogin] = useState("hide")
+
+    const wrongNameOrPassword = () => {
+    setWrongLogin("show")
+    }
 
 const onLogin = async () => {
 try {
@@ -25,6 +30,7 @@ try {
    router.push("/profile")
     
 } catch (error) {
+    wrongNameOrPassword()
     console.log(error.message)
 }
 }
@@ -78,6 +84,7 @@ try {
        
 
         <span>Don't have an account yet ?&nbsp;&nbsp;&nbsp; <Link href="/signup" className="sign">Signup</Link></span>
+        <p className={wrongLogin}>*zlé meno alebo heslo</p>
         </div>
 
           

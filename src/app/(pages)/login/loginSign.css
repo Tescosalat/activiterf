@@ -226,4 +226,13 @@ span {
   z-index: 0;
   width: 800px;
   transform: translate(-30px, -50px);
+}
+
+.show {
+  display: block;
+  color: red;
+}
+
+.hide {
+  display: none;
 }/*# sourceMappingURL=loginSign.css.map */
