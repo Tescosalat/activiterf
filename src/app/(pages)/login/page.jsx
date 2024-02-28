@@ -1,5 +1,7 @@
 "use client"
 
+import bcrypt from 'bcryptjs';
+
 import Link from "next/link"
 import React, { useEffect, useState } from "react"
 import { usePathname } from 'next/navigation' 
@@ -27,7 +29,8 @@ const onLogin = async () => {
 try {
 
    const response = await axios.post("/api/users/login", user)
-   router.push("/profile")
+   console.log(response);
+   router.push(`/profile/${user.username}`)
     
 } catch (error) {
     wrongNameOrPassword()
