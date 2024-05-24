@@ -6,14 +6,12 @@ import { io } from "socket.io-client";
 
 const socket = io();
 
-export const Chat = () => {
+export const Chat = ({name}) => {
   const [isConnected, setIsConnected] = useState(false);
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState({});
   const [messageInput, setMessageInput] = useState("");
-  const [room, setRoom] = useState(null);
-  const [temp, setTemp] = useState(null)
-
-
+  const [currentChat, setCurrentChat] = useState(null);
+  const [recipient, setRecipient] = useState("");
 
   useEffect(() => {
     if (socket.connected) {
@@ -28,38 +26,60 @@ export const Chat = () => {
       setIsConnected(false);
     });
 
-    socket.on("message", (message) => {
-      setMessages((prevMessages) => [...prevMessages, message]);
+    socket.on("private_message", ({from, message}) => {
+      setMessages((prevMessages) => {
+        const newMessages = { ...prevMessages };
+        if (!newMessages[from]) {
+          newMessages[from] = [];
+        }
+        newMessages[from].push({ from, message });
+        return newMessages;
+      });
+      console.log(`Message from ${from}: ${message}`);
     });
 
     return () => {
       socket.off("connect");
       socket.off("disconnect");
-      socket.off("message");
+      socket.off("private_message");
     };
   }, []);
 
-  // Join room when room changes
   useEffect(() => {
-    if (room) {
-      socket.emit("joinRoom", room);
+    if (name) {
+        socket.emit("register", name);
     }
-  }, [room]);
-
-
+  }, [name]); 
 
   const sendMessage = () => {
-    if (messageInput.trim() !== "") {
-      socket.emit("message", { message: messageInput.trim(), room });
+    if (messageInput.trim() !== "" && (currentChat || recipient)) {
+      const to = currentChat || recipient;
+      socket.emit("private_message", { to, message: messageInput.trim() });
+      setMessages((prevMessages) => {
+        const newMessages = { ...prevMessages };
+        if (!newMessages[to]) {
+          newMessages[to] = [];
+        }
+        newMessages[to].push({ from: name, message: messageInput.trim() });
+        return newMessages;
+      });
       setMessageInput("");
+      if (!currentChat) {
+        setCurrentChat(to);
+      }
     }
   };
 
   return (
     <div>
-  
       <p>Status: {isConnected ? "connected" : "disconnected"}</p>
 
+      <input
+        type="text"
+        placeholder="Recipient"
+        value={recipient}
+        onChange={(e) => setRecipient(e.target.value)}
+      />
       <input
         type="text"
         value={messageInput}
@@ -72,17 +92,24 @@ export const Chat = () => {
       />
       <button onClick={sendMessage}>Send</button>
 
-    
-
-      <input
-        type="text"
-        placeholder="room"
-        onChange={(e) => setTemp(e.target.value)}
-      />
-      <button onClick={() => {socket.emit("leaveRoom", room); setRoom(temp)}}>room</button>
       <div>
-        {messages.map((message, index) => (
-          <div key={index}>{message}</div>
+        {currentChat && messages[currentChat] ? (
+          messages[currentChat].map((message, index) => (
+            <div key={index}>
+              <strong>{message.from}:</strong> {message.message}
+            </div>
+          ))
+        ) : (
+          <p>No messages</p>
+        )}
+      </div>
+
+      <div>
+        <h3>Open Chats</h3>
+        {Object.keys(messages).map((chat, index) => (
+          <button key={index} onClick={() => setCurrentChat(chat)}>
+            {chat}
+          </button>
         ))}
       </div>
     </div>

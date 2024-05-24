@@ -21,28 +21,44 @@ app.prepare().then(() => {
 
   const io = new Server(httpServer);
 
+  const users = {};
+
   io.on("connection", (socket) => {
     console.log("Client connected");
-
-    socket.on("joinRoom", (room) => {
-      socket.join(room);
-      console.log(`Client joined room: ${room}`);
+    
+    socket.on('register', (username) => {
+        users[username] = socket.id;
+        socket.username = username;
+        console.log(`${username} registered with id: ${socket.id}`);
     });
 
-    socket.on("leaveRoom", (room) => {
-      socket.leave(room);
-      console.log(`Client left room: ${room}`);
-    });
+        // Handle private message
+        socket.on('private_message', ({ to, message }) => {
+            const toSocketId = users[to];
+            if (toSocketId) {
+              io.to(toSocketId).emit('private_message', {
+                from: socket.username,
+                message,
+              });
+              console.log(`Message from ${socket.username} to ${to}: ${message}`);
+            } else {
+              console.log(`User ${to} not found`);
+            }
+          });
 
-    socket.on("message", ({ message, room }) => {
-      console.log("Message received:", message, "Room:", room);
-      io.to(room).emit("message", message); 
-    });
 
-    socket.on("disconnect", () => {
-      console.log("Client disconnected");
-    });
-  });
+
+          socket.on("disconnect", () => {
+            console.log("Client disconnected");
+            // Remove the user from the users object
+            for (let username in users) {
+              if (users[username] === socket.id) {
+                delete users[username];
+                break;
+              }
+            }
+          });
+        });
 
   httpServer.listen(port, () => {
     console.log(`Server is listening on http://${hostname}:${port}`);
