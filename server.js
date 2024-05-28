@@ -32,7 +32,7 @@ app.prepare().then(() => {
         console.log(`${username} registered with id: ${socket.id}`);
     });
 
-        // Handle private message
+       
         socket.on('private_message', ({ to, message }) => {
             const toSocketId = users[to];
             if (toSocketId) {
@@ -50,7 +50,6 @@ app.prepare().then(() => {
 
           socket.on("disconnect", () => {
             console.log("Client disconnected");
-            // Remove the user from the users object
             for (let username in users) {
               if (users[username] === socket.id) {
                 delete users[username];

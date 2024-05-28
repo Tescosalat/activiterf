@@ -1,28 +1,20 @@
 "use client"
 
-import { Chat } from "../../../components/Chat"
-import { useState, useEffect } from "react"
-import axios from "axios"
+import { Chat2 } from "../../../components/Chat2"
+import  getCookie  from "../../../../helpers/getCookie";
+import { useState, useEffect } from "react";
 
 export default function Home() {
 
-  const [profile, setProfile] = useState("")
-  const [name, setName] = useState("")
-
-const getUserDetails = async () => {
-      const res = await axios.get("/api/users/me")
-setProfile(res.data.data.image)
-setName(res.data.data.username)
-  }
+  const [name, setName] = useState("");
 
   useEffect(() => {
-      getUserDetails()
-  },[])
-
+    setName(getCookie("name"));
+  }, []);
 
   return (
     <div>
-      <Chat name={name}/>
+      <Chat2 name={name}/>
     </div>
   );
 }

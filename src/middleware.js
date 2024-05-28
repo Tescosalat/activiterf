@@ -27,11 +27,11 @@ export function middleware(request) {
         return NextResponse.redirect(new URL(`/profile/${name}`, request.nextUrl))
     }
 
-    if ( token && path !== `/profile/${name}`) {
+    if (token && (path !== `/profile/${name}` && path !== `/profile/${name}/chatMenu` && !path.startsWith(`/profile/${name}/chatMenu/`))) {
         return NextResponse.redirect(new URL(`/profile/${name}`, request.nextUrl))
     }
+    
 
-  
 
     if(!isPublicPath && !token) {
         return NextResponse.redirect(new URL("/login", request.nextUrl))

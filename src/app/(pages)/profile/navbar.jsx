@@ -7,7 +7,7 @@ import { useEffect, useState } from "react"
 import "./navbar.css"
 import { IoIosArrowDown } from 'react-icons/Io';
 import { TbDoorExit } from 'react-icons/Tb';
-
+import { FiMessageCircle } from "react-icons/fi";
 
 
 
@@ -55,6 +55,11 @@ setLoading(false)
     <img src="/images/logo.png" alt="" className="logo" />
     </Link>
     <div className="nameAndPhoto">
+    <div className="icon-container">
+        <Link href={`/profile/${name}/chatMenu`}>
+        <FiMessageCircle className="message-icon"/>
+        </Link>
+    </div>
         <p className="name">{name}</p>
          
         <div onClick={settingsHandler} className="photoSet">
@@ -66,7 +71,6 @@ setLoading(false)
             <IoIosArrowDown className="arrowIcon"/>
         </div>
          
-     
         
          <div className={settings ? "setShow" : "setHide"}>
             <div className="button" onClick={logout}>
