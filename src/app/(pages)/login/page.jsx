@@ -40,7 +40,8 @@ try {
 
 
     return (
-        <article>
+      
+   <article>
             <img src="/images/back.png" alt="" className="back" draggable="false"/>
             
 <div className="container">
@@ -96,6 +97,6 @@ try {
 
       
         </article>
-       
+   
     )
 }

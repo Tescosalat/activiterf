@@ -2,9 +2,9 @@
 
 import axios from "axios"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { useRouter, usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
-import "./navbar.css"
+import "../../styles/navbar.css"
 import { IoIosArrowDown } from 'react-icons/Io';
 import { TbDoorExit } from 'react-icons/Tb';
 import { FiMessageCircle } from "react-icons/fi";
@@ -19,7 +19,13 @@ export default function Navbar() {
     const [settings, setSettings] = useState(false)
     const router = useRouter()
 
-   
+   const pathname = usePathname()
+   console.log(`this is: ${pathname}`);
+
+
+   const regex = /^\/profile\/[^\/]+\/chatMenu\/.*$/
+   const isProfileChatMenu = regex.test(pathname);
+
 
     const getUserDetails = async () => {
         const res = await axios.get("/api/users/me")
@@ -50,7 +56,7 @@ setLoading(false)
 
     return (
 <div>
-    <div className="navbar">
+    <div className="navbar" id={isProfileChatMenu ? "hide-shadow" : "navbar"}>
     <Link href="/profile">
     <img src="/images/logo.png" alt="" className="logo" />
     </Link>
@@ -72,7 +78,9 @@ setLoading(false)
         </div>
          
         
-         <div className={settings ? "setShow" : "setHide"}>
+         <div className={
+           settings ? "setShow" : "setHide"
+            }>
             <div className="button" onClick={logout}>
             <TbDoorExit className="exit"/>
             

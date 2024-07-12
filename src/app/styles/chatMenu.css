@@ -1,0 +1,34 @@
+.chat-row-container {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chat-par-image {
+  width: 50px;
+  height: 50px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
+  margin-left: 20px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+.chat-row {
+  display: flex;
+  align-items: center;
+  height: 80px;
+  margin-top: 5px;
+  background-color: rgba(157, 186, 254, 0.203);
+  width: 95%;
+  border-radius: 10px;
+}
+.chat-row:hover {
+  cursor: pointer;
+}
+.chat-row p {
+  margin-left: 20px;
+}/*# sourceMappingURL=chatMenu.css.map */

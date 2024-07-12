@@ -1,0 +1,121 @@
+.chat-panel {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 15px 10px -15px black;
+  margin-top: 20px;
+}
+.chat-panel p {
+  margin-left: 20px;
+}
+.chat-panel img {
+  width: 30px;
+  height: 30px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
+  margin-left: 20px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+.wholeChatContainer {
+  margin-top: -20px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(157, 186, 254, 0.203);
+  z-index: -2;
+}
+
+.sendAndInput {
+  background-color: rgba(255, 255, 255, 0.443);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  padding: 10px;
+  position: fixed;
+  width: 100vw;
+  bottom: 0px;
+  display: flex;
+  align-items: flex-end;
+}
+.sendAndInput span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+}
+.sendAndInput input {
+  width: 100%;
+  border-radius: 50px;
+  border: 0;
+  height: 45px;
+  background-color: rgb(91, 92, 104);
+  margin-right: 5px;
+}
+.sendAndInput button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border: 0;
+  border-radius: 50%;
+  background-color: #25D366;
+  font-size: 28px;
+}
+.sendAndInput button:hover {
+  cursor: pointer;
+}
+
+.chatPageContainer {
+  width: 100%;
+  height: 100vh;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  padding: 80px 10px 80px 10px;
+  font-size: 16px;
+}
+.chatPageContainer .sender {
+  margin: 5px 0px 5px auto;
+  padding: 8px 15px;
+  max-width: 60%;
+  border-radius: 3px 12px 12px 12px;
+  background-color: #088c7d;
+  color: white;
+  box-shadow: 0px 1px 2px black;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.chatPageContainer .receiver {
+  margin: 5px 0px 5px 0px;
+  padding: 8px 15px;
+  max-width: 60%;
+  border-radius: 12px 12px 3px 12px;
+  background-color: rgb(99, 99, 99);
+  color: white;
+  box-shadow: 0px 1px 2px black;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.timestamp {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-left: 10px;
+}
+
+.centerTime {
+  display: flex;
+  align-items: end;
+}
+
+.input-text {
+  color: white;
+  padding-left: 20px;
+}/*# sourceMappingURL=chatPage.css.map */

@@ -1,5 +1,5 @@
 import { Roboto, Bebas_Neue } from 'next/font/google'
-import './globals.scss'
+import './globals.css'
 
 export const roboto = Roboto({ subsets: ['latin'], weight: ["400"], display: "swap", variable: "--roboto-font" })
 export const bebas = Bebas_Neue({subsets: ["latin"], weight: ["400"], display: "swap", variable: "--bebas-font"})

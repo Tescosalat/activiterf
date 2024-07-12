@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { ChatMenu } from "../../../../components/ChatMenu";
 import  getCookie  from "../../../../../helpers/getCookie";
 
-export default function Home() {
+export default function ChatMenuPage() {
   const [name, setName] = useState("");
 
   useEffect(() => {
@@ -13,7 +13,7 @@ export default function Home() {
 
   return (
     <div>
-      <ChatMenu name={name}/>
+      <ChatMenu name={name} />
     </div>
   );
 }

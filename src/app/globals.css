@@ -8,6 +8,11 @@ h1 {
   font-size: 30px;
 }
 
+main {
+  height: 100%;
+  padding-top: 65px;
+}
+
 img, picture, video, canvas, svg {
   display: block;
   max-width: 100%;
@@ -22,7 +27,9 @@ img, picture, video, canvas, svg {
 }
 
 html, body {
-  height: 100%;
+  min-height: 100vh;
+  min-width: 100vw;
+  overflow: auto;
 }
 
 body {

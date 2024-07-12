@@ -10,6 +10,7 @@
     "serve": "node server.js"
   },
   "dependencies": {
+    "@vis.gl/react-google-maps": "^1.1.0",
     "axios": "^1.6.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",

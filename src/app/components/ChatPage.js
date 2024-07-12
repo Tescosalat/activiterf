@@ -1,31 +1,52 @@
 "use client"
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { io } from "socket.io-client";
+import "../styles/chatPage.css";
+import { LuSend } from "react-icons/lu";
 import axios from "axios";
-
 
 const socket = io();
 
-export const Chat2 = ({ name }) => {
+
+const timeStampFunction = (time) => {
+  if (!!time) {
+    return time.split("").splice(11, 5).join("");
+  }
+};
+
+export const ChatPage = ({ name, chat }) => {
   const [isConnected, setIsConnected] = useState(false);
   const [messages, setMessages] = useState({});
   const [messageInput, setMessageInput] = useState("");
-  const [currentChat, setCurrentChat] = useState(null);
-  const [recipient, setRecipient] = useState("");
+  const [currentChat, setCurrentChat] = useState(chat);
   const [chatPartners, setChatPartners] = useState([]);
-  const [userData, setUserData] = useState(null)
+  const [userData, setUserData] = useState([])
+
+
+  
+  const chatContainerRef = useRef(null); 
+  const hasRegistered = useRef(false); 
 
   const getUserDetails = async () => {
     const res = await axios.get("/api/users/all")
     setUserData(res.data.data)
 }
 
-
 useEffect(() => {
   getUserDetails()
 },[])
- 
+
+
+
+const targetUsername = name !== Object.keys(messages)[1] ? Object.keys(messages)[1] : Object.keys(messages)[0];
+const targetUser = userData.find(user => user.username === targetUsername);
+
+const userToName = targetUser?.username || "";
+const userToImage = targetUser?.image || "";
+
+
+
 
   useEffect(() => {
     if (socket.connected) {
@@ -34,13 +55,23 @@ useEffect(() => {
 
     socket.on("connect", () => {
       setIsConnected(true);
+      console.log("Connected to socket");
+
+    
+      if (name && !hasRegistered.current) {
+        socket.emit("register", name);
+        hasRegistered.current = true;
+      }
     });
 
     socket.on("disconnect", () => {
       setIsConnected(false);
+      console.log("Disconnected from socket");
+      hasRegistered.current = false; 
     });
 
     socket.on("private_message", ({ from, to, message }) => {
+      console.log(`Received private message from ${from} to ${to}: ${message}`);
       setMessages((prevMessages) => {
         const newMessages = { ...prevMessages };
         if (!newMessages[from]) {
@@ -57,15 +88,15 @@ useEffect(() => {
 
     socket.on("previous_messages", (fetchedMessages) => {
       const newMessages = {};
-      fetchedMessages.forEach(({ from, to, message }) => {
+      fetchedMessages.forEach(({ from, to, message, timestamp }) => {
         if (!newMessages[from]) {
           newMessages[from] = [];
         }
         if (!newMessages[to]) {
           newMessages[to] = [];
         }
-        newMessages[from].push({ from, message });
-        newMessages[to].push({ from, message });
+        newMessages[from].push({ from, message, timestamp });
+        newMessages[to].push({ from, message, timestamp });
       });
       setMessages(newMessages);
     });
@@ -74,36 +105,35 @@ useEffect(() => {
       setChatPartners(partners);
     });
 
-    socket.on("new_chat_partner", (newPartner) => {
-      setChatPartners((prevPartners) => {
-        if (!prevPartners.includes(newPartner) && newPartner !== name) {
-          return [{...prevPartners}, {newPartner}];
-        }
-        return prevPartners;
-      });
-    });
-
     return () => {
       socket.off("connect");
       socket.off("disconnect");
       socket.off("private_message");
       socket.off("previous_messages");
       socket.off("chat_partners");
-      socket.off("new_chat_partner");
     };
   }, [name]);
 
   useEffect(() => {
-    if (name) {
+    if (name && isConnected) {
+      console.log(`Registering user: ${name}`);
       socket.emit("register", name);
     }
-  }, [name]);
+  }, [name, isConnected]);
 
   useEffect(() => {
-    if (currentChat) {
+    if (currentChat && isConnected) {
       socket.emit("fetch_messages", currentChat);
     }
-  }, [currentChat]);
+  }, [currentChat, isConnected]);
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+
 
   const sendMessage = () => {
     if (messageInput.trim() !== "" && currentChat) {
@@ -117,48 +147,43 @@ useEffect(() => {
       }));
       setMessageInput("");
 
-      // Add recipient to chat partners if not already added
       if (!chatPartners.includes(currentChat)) {
         setChatPartners((prevPartners) => [...prevPartners, currentChat]);
       }
     }
   };
 
-  const handleAddToChat = (chatPartner) => {
-    if (chatPartner !== name && chatPartner.trim() !== "") {
-      setCurrentChat(chatPartner);
-      setRecipient(chatPartner);
-  
-      
-      socket.emit("private_message", { to: chatPartner, message: "" });
-  
-   
-      if (!chatPartners.includes(chatPartner)) {
-        socket.emit("new_chat_partner", chatPartner);
-      }
-    }
-  };
-  
-  
-  
-
-  const handleSend = () => {
+  const handleSend = (e) => {
+    e.preventDefault()
     sendMessage();
   };
-  console.log(chatPartners);
-  return (
-    <div>
-      <p>Status: {isConnected ? "connected" : "disconnected"}</p>
 
-      <div>
+  return (
+    <div> 
+        <div className="chat-panel">
+        <img src={userToImage} />
+        <p>{userToName}</p>
+        </div>
+    <div className="wholeChatContainer">
+      <div className="chatPageContainer" ref={chatContainerRef}>
+        {chat && messages[chat] ? (
+          messages[chat].map(({ from, message, timestamp }, index) => (
+            <div key={index}>
+              <div className={from === chat ? "receiver" : "sender"}>
+                <span className="centerTime">
+                  {message}
+                  <p className="timestamp">{timeStampFunction(timestamp)}</p>
+                </span>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p></p>
+        )}
+      </div>
+      <div className="sendAndInput">
         <input
-          type="text"
-          placeholder="Recipient"
-          value={recipient}
-          onChange={(e) => setRecipient(e.target.value)}
-        />
-        <button onClick={() => handleAddToChat(recipient)}>Add</button>
-        <input
+          className="input-text"
           type="text"
           value={messageInput}
           onChange={(e) => setMessageInput(e.target.value)}
@@ -168,22 +193,13 @@ useEffect(() => {
             }
           }}
         />
-        <button onClick={handleSend}>Send</button>
+        <button onClick={handleSend}>
+          <span>
+            <LuSend className="arrowIcon" />
+          </span>
+        </button>
       </div>
-
-
-      <div>
-        <h3>Messages</h3>
-        {currentChat && messages[currentChat] ? (
-          messages[currentChat].map(({ from, message }, index) => (
-            <div key={index}>
-              <strong>{from}:</strong> {message}
-            </div>
-          ))
-        ) : (
-          <p>No messages</p>
-        )}
-      </div>
+    </div>
     </div>
   );
 };
