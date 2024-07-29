@@ -5,8 +5,6 @@ import Link from "next/link"
 import { useRouter, usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 import "../../styles/navbar.css"
-import { IoIosArrowDown } from 'react-icons/Io';
-import { TbDoorExit } from 'react-icons/Tb';
 import { FiMessageCircle } from "react-icons/fi";
 
 
@@ -74,7 +72,7 @@ setLoading(false)
             alt="profilepicture" 
             className="profilePicture"
              />}
-            <IoIosArrowDown className="arrowIcon"/>
+        
         </div>
          
         
@@ -82,7 +80,7 @@ setLoading(false)
            settings ? "setShow" : "setHide"
             }>
             <div className="button" onClick={logout}>
-            <TbDoorExit className="exit"/>
+           
             
             <button className="logout">Logout</button>
             
