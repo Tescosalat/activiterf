@@ -15,7 +15,7 @@ const app = next({
 
 const handler = app.getRequestHandler();
 
-const uri = 'mongodb+srv://roman:qsBAZAIdmwOEyYuI@cluster0.aaprsao.mongodb.net/';
+const uri = process.env.MONGO_URI;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 let messagesCollection;
