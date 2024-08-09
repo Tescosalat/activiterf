@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { ChatMenu } from "../../../../components/ChatMenu";
 import  getCookie  from "../../../../../helpers/getCookie";
 

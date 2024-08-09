@@ -190,21 +190,22 @@ export const MapGoogle = ({ name, photo }) => {
     <APIProvider apiKey={process.env.NEXT_PUBLIC_MAPS}>
       <div className={activityMenu}>
         <h1>Which activity are you interested in? Choose your icon:</h1>
-        <button className="exit-button" onClick={() => setActivityMenu("hide-act-menu")}>
+        <button
+          className="exit-button"
+          onClick={() => setActivityMenu("hide-act-menu")}
+        >
           <IoCloseOutline />
         </button>
         <div className="icon-container-activity">
-          {icons.map((icon, index) => {
-            return (
-              <button
-                className={index === iconTemp ? "selected" : ""}
-                onClick={() => setIconTemp(icons.indexOf(icon))}
-                key={index}
-              >
-                {icons[icons.indexOf(icon)]}
-              </button>
-            )
-          })}
+          {icons.map((icon, index) => (
+            <button
+              key={index}
+              className={index === iconTemp ? "selected" : ""}
+              onClick={() => setIconTemp(icons.indexOf(icon))}
+            >
+              {icons[icons.indexOf(icon)]}
+            </button>
+          ))}
           <div className="bottom-div"></div>
         </div>
         <div className="time">

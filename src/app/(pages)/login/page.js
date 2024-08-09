@@ -76,7 +76,7 @@ export default function LoginPage() {
         </div>
 
         <p>
-          Don't have an account yet ?&nbsp;&nbsp;&nbsp;{" "}
+          Don&apos;t have an account yet ?&nbsp;&nbsp;&nbsp;{" "}
           <Link href="/signup" className="sign">
             Signup
           </Link>
