@@ -9,10 +9,12 @@
   height: 80px;
   display: flex;
   align-items: center;
+
+  img {
+    margin-right: 30px;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
 }
-.chatBox img {
-  margin-right: 30px;
-}
-.chatBox:hover {
-  cursor: pointer;
-}/*# sourceMappingURL=chat.css.map */

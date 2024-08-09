@@ -1,36 +1,33 @@
-import { connect } from "../../../../dbConfig/dbConfig";
+import { connect } from "../../../../dbConfig/dbConfig"
 import Marker from "../../../../model/markersModel"
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server"
 
 connect()
 
 export async function POST(request) {
-    try {
-        const reqBody = await request.json()
-        const {lat, lng, icon, description, time, admin, photo, open} = reqBody
+  try {
+    const reqBody = await request.json()
+    const { lat, lng, icon, description, time, admin, photo, open } = reqBody
 
- 
-const newMarker = new Marker({
-    lat,
-    lng,
-    icon,
-    description,
-    time,
-    admin,
-    photo,
-    open
-})
-
-const savedMarker = await newMarker.save()
-
-return NextResponse.json({
-    message: "created",
-    success: true,
-    savedMarker,
+    const newMarker = new Marker({
+      lat,
+      lng,
+      icon,
+      description,
+      time,
+      admin,
+      photo,
+      open,
     })
 
+    const savedMarker = await newMarker.save()
 
-    } catch (error) {
-        return NextResponse.json({error: error.message}, {status: 500})
-    }
+    return NextResponse.json({
+      message: "created",
+      success: true,
+      savedMarker,
+    })
+  } catch (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 })
+  }
 }

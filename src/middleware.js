@@ -1,49 +1,31 @@
-import { NextResponse } from "next/server";
-
-
-
-
+import { NextResponse } from "next/server"
 
 export function middleware(request) {
-  
+  const path = request.nextUrl.pathname
 
+  const isPublicPath = path === "/login" || path === "/signup" || path === "/"
 
-    const path = request.nextUrl.pathname
-    
+  const token = request.cookies.get("token")?.value || ""
+  const name = request.cookies.get("name")?.value || ""
 
+  if (isPublicPath && token) {
+    return NextResponse.redirect(new URL(`/profile/${name}`, request.nextUrl))
+  }
 
-    const isPublicPath = path === "/login" || path === "/signup" || path === "/"
+  if (
+    token &&
+    path !== `/profile/${name}` &&
+    path !== `/profile/${name}/chatMenu` &&
+    !path.startsWith(`/profile/${name}/chatMenu/`)
+  ) {
+    return NextResponse.redirect(new URL(`/profile/${name}`, request.nextUrl))
+  }
 
-
-    const token = request.cookies.get("token")?.value || "" 
-    const name = request.cookies.get("name")?.value || "" 
-    
-
-   
-
-
-
-    if (isPublicPath && token) {
-        return NextResponse.redirect(new URL(`/profile/${name}`, request.nextUrl))
-    }
-
-    if (token && (path !== `/profile/${name}` && path !== `/profile/${name}/chatMenu` && !path.startsWith(`/profile/${name}/chatMenu/`))) {
-        return NextResponse.redirect(new URL(`/profile/${name}`, request.nextUrl))
-    }
-    
-
-
-    if(!isPublicPath && !token) {
-        return NextResponse.redirect(new URL("/login", request.nextUrl))
-    }
+  if (!isPublicPath && !token) {
+    return NextResponse.redirect(new URL("/login", request.nextUrl))
+  }
 }
 
 export const config = {
-    matcher: [
-        "/",
-        "/profile",
-        "/login",
-        "/signup",
-        "/profile/:path*"
-    ]
+  matcher: ["/", "/profile", "/login", "/signup", "/profile/:path*"],
 }

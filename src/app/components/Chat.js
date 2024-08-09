@@ -1,74 +1,73 @@
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
-import { io } from "socket.io-client";
+import { useEffect, useState } from "react"
+import { io } from "socket.io-client"
 
+const socket = io()
 
-const socket = io();
-
-export const Chat = ({name}) => {
-  const [isConnected, setIsConnected] = useState(false);
-  const [messages, setMessages] = useState({});
-  const [messageInput, setMessageInput] = useState("");
-  const [currentChat, setCurrentChat] = useState(null);
-  const [recipient, setRecipient] = useState("");
+export const Chat = ({ name }) => {
+  const [isConnected, setIsConnected] = useState(false)
+  const [messages, setMessages] = useState({})
+  const [messageInput, setMessageInput] = useState("")
+  const [currentChat, setCurrentChat] = useState(null)
+  const [recipient, setRecipient] = useState("")
 
   useEffect(() => {
     if (socket.connected) {
-      setIsConnected(true);
+      setIsConnected(true)
     }
 
     socket.on("connect", () => {
-      setIsConnected(true);
-    });
+      setIsConnected(true)
+    })
 
     socket.on("disconnect", () => {
-      setIsConnected(false);
-    });
+      setIsConnected(false)
+    })
 
-    socket.on("private_message", ({from, message}) => {
+    socket.on("private_message", ({ from, message }) => {
       setMessages((prevMessages) => {
-        const newMessages = { ...prevMessages };
+        const newMessages = { ...prevMessages }
         if (!newMessages[from]) {
-          newMessages[from] = [];
+          newMessages[from] = []
         }
-        newMessages[from].push({ from, message });
-        return newMessages;
-      });
-      console.log(`Message from ${from}: ${message}`);
-    });
+        newMessages[from].push({ from, message })
+        return newMessages
+      })
+      console.log(`Message from ${from}: ${message}`)
+    })
 
     return () => {
-      socket.off("connect");
-      socket.off("disconnect");
-      socket.off("private_message");
-    };
-  }, []);
+      socket.off("connect")
+      socket.off("disconnect")
+      socket.off("private_message")
+    }
+  }, [])
 
   useEffect(() => {
     if (name) {
-        socket.emit("register", name);
+      socket.emit("register", name)
     }
-  }, [name]); 
+  }, [name])
 
   const sendMessage = () => {
     if (messageInput.trim() !== "" && (currentChat || recipient)) {
-      const to = currentChat || recipient;
-      socket.emit("private_message", { to, message: messageInput.trim() });
+      const to = currentChat || recipient
+      socket.emit("private_message", { to, message: messageInput.trim() })
       setMessages((prevMessages) => {
-        const newMessages = { ...prevMessages };
+        const newMessages = { ...prevMessages }
         if (!newMessages[to]) {
-          newMessages[to] = [];
+          newMessages[to] = []
         }
-        newMessages[to].push({ from: name, message: messageInput.trim() });
-        return newMessages;
-      });
-      setMessageInput("");
+        newMessages[to].push({ from: name, message: messageInput.trim() })
+        return newMessages
+      })
+      setMessageInput("")
       if (!currentChat) {
-        setCurrentChat(to);
+        setCurrentChat(to)
       }
     }
-  };
+  }
 
   return (
     <div>
@@ -86,7 +85,7 @@ export const Chat = ({name}) => {
         onChange={(e) => setMessageInput(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            sendMessage();
+            sendMessage()
           }
         }}
       />
@@ -113,5 +112,5 @@ export const Chat = ({name}) => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
