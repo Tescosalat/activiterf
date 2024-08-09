@@ -4,8 +4,8 @@ import axios from "axios"
 import Link from "next/link"
 import { useRouter, usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
-import { IoIosArrowDown } from "react-icons/Io"
-import { TbDoorExit } from "react-icons/Tb"
+import { IoIosArrowDown } from "react-icons/io"
+import { TbDoorExit } from "react-icons/tb"
 import { FiMessageCircle } from "react-icons/fi"
 
 export default function Navbar() {
