@@ -43,22 +43,22 @@ export const MapGoogle = ({ name, photo }) => {
   const [chatPartners, setChatPartners] = useState([])
 
   const icons = [
-    <MdOutlineSportsBar />,
-    <MdOutlineSportsEsports />,
-    <MdOutlineSportsBaseball />,
-    <MdOutlineSportsFootball />,
-    <MdOutlineSportsCricket />,
-    <MdOutlineSportsBasketball />,
-    <MdOutlineSportsMma />,
-    <MdOutlineSportsHockey />,
-    <MdOutlineSportsVolleyball />,
-    <MdOutlineSportsTennis />,
-    <FaPassport />,
-    <FaSwimmer />,
-    <FaCoffee />,
-    <IoBicycleSharp />,
-    <CgGym />,
-    <MdDirectionsWalk />,
+    <MdOutlineSportsBar key={1}/>,
+    <MdOutlineSportsEsports key={2}/>,
+    <MdOutlineSportsBaseball key={3}/>,
+    <MdOutlineSportsFootball key={4}/>,
+    <MdOutlineSportsCricket key={5}/>,
+    <MdOutlineSportsBasketball key={6}/>,
+    <MdOutlineSportsMma key={7}/>,
+    <MdOutlineSportsHockey key={8}/>,
+    <MdOutlineSportsVolleyball key={9}/>,
+    <MdOutlineSportsTennis key={10}/>,
+    <FaPassport key={11}/>,
+    <FaSwimmer key={12}/>,
+    <FaCoffee key={13}/>,
+    <IoBicycleSharp key={14}/>,
+    <CgGym key={15}/>,
+    <MdDirectionsWalk key={16}/>,
   ]
 
   console.log(timeTemp)
