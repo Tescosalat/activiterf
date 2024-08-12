@@ -29,6 +29,8 @@
     "socketio": "^1.0.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.24.8",
+    "@babel/preset-env": "^7.25.3",
     "@types/react": "18.2.56",
     "eslint": "^8",
     "eslint-config-next": "14.0.0"

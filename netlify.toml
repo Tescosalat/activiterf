@@ -1,0 +1,6 @@
+[build]
+  command = "babel src --out-dir lib && npm run build"
+  publish = "out"
+
+[functions]
+  directory = "netlify/functions"
