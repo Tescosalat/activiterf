@@ -7,8 +7,11 @@ export const getDataFromToken = (request) => {
   try {
     const token = request.cookies.get("token")?.value || ""
     const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET)
+    console.log("token");
+    console.log(decodedToken);
+    console.log(decodedToken.id);
     return decodedToken.id
   } catch (error) {
-    console.log(error.message)
+    console.log("token error")
   }
 }
