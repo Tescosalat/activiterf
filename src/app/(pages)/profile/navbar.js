@@ -16,7 +16,7 @@ export default function Navbar() {
   const router = useRouter()
 
   const pathname = usePathname()
-  console.log(`this is: ${pathname}`)
+
 
   const regex = /^\/profile\/[^\/]+\/chatMenu\/.*$/
   const isProfileChatMenu = regex.test(pathname)
