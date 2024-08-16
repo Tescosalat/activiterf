@@ -23,8 +23,6 @@ export default function Navbar() {
 
   const getUserDetails = async () => {
     const res = await axios.get("/api/users/me")
-    console.log(res.data);
-    console.log(res.data.data);
     setProfile(res.data.data.image)
     setName(res.data.data.username)
     setLoading(false)

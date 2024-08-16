@@ -6,10 +6,9 @@ dotenv.config()
 export const getDataFromToken = (request) => {
   try {
     const token = request.cookies.get("token")?.value || ""
+    console.log("Token retrieved:", token);
     const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET)
-    console.log("token");
-    console.log(decodedToken);
-    console.log(decodedToken.id);
+    console.log("Decoded token:", decodedToken);
     return decodedToken.id
   } catch (error) {
     console.log("token error")
