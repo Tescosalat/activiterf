@@ -23,10 +23,14 @@ export default function Navbar() {
 
   const getUserDetails = async () => {
     const res = await axios.get("/api/users/me")
-  
+    console.log("resData:", res.data.data);
+    if (res.data && res.data.data) {
       setProfile(res.data.data.image);
       setName(res.data.data.username);
-   
+      setLoading(false)
+    } else {
+      console.error("User data is null or undefined");
+    }
   }
 
   useEffect(() => {
