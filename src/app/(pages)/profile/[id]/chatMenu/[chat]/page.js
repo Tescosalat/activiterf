@@ -15,6 +15,7 @@ export default function Chat() {
   }, [])
 
   console.log(params.chat)
+  console.log("cookieName:", name);
 
   return (
     <div>
