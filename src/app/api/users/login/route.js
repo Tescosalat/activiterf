@@ -46,7 +46,7 @@ export async function POST(request) {
       email: user.email,
     }
 
-    const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET, {
+    const token = jwt.sign(tokenData, process.env.TOKEN_SECRET, {
       expiresIn: "10d",
     })
 
@@ -55,7 +55,7 @@ export async function POST(request) {
       success: true,
     })
     response.cookies.set("token", token, {
-      httpOnly: true,
+      httpOnly: false,
     })
     response.cookies.set("name", user.username)
 
