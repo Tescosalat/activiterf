@@ -56,8 +56,13 @@ export async function POST(request) {
     })
     response.cookies.set("token", token, {
       httpOnly: true,
-    })
-    response.cookies.set("name", user.username)
+      secure: process.env.NODE_ENV === "production", 
+      sameSite: "lax",
+      path: "/", 
+    });
+    response.cookies.set("name", user.username, {
+      path: "/",
+    });
 
     return response
   } catch (error) {
