@@ -7,7 +7,7 @@ import dotenv from "dotenv"
 dotenv.config()
 
 const dev = process.env.NODE_ENV !== "production"
-const hostname = "0.0.0.0"
+const hostname = "localhost"
 const port = 3001
 
 const app = next({

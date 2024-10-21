@@ -45,7 +45,6 @@ export async function POST(request) {
       username: user.username,
       email: user.email,
     }
-
     const token = jwt.sign(tokenData, process.env.TOKEN_SECRET, {
       expiresIn: "10d",
     })
@@ -55,6 +54,7 @@ export async function POST(request) {
       success: true,
     })
     response.cookies.set("token", token, {
+      httpOnly: true,
       secure: process.env.NODE_ENV === "production", 
       sameSite: "lax",
       path: "/", 

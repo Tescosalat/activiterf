@@ -210,6 +210,11 @@
   height: 60px;
   border-radius: 50%;
   margin-right: 15px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 
 .photo-name-list {
@@ -417,11 +422,10 @@ p {
   border: none;
   border-radius: 10px;
   font-size: 25px;
-  background-color: rgba(233, 216, 60, 0.3960784314);
+  background-color: rgba(157, 186, 254, 0.203);
 }
 .exit-button:hover {
   cursor: pointer;
-  background-color: rgba(233, 216, 60, 0.5294117647);
 }
 
 .photo-name {
@@ -779,7 +783,7 @@ article {
 
 h1 {
   margin: 10px;
-  color: #419197;
+  color: black;
   font-size: 40px;
 }
 

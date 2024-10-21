@@ -123,7 +123,7 @@ export const MapGoogle = ({ name, photo }) => {
     getAllMarkers()
     const intervalId = setInterval(() => {
       getAllMarkers()
-    }, 3000)
+    }, 15000)
     return () => clearInterval(intervalId)
   }, [])
 
@@ -273,7 +273,7 @@ export const MapGoogle = ({ name, photo }) => {
                           <p>{marker.admin}</p>
                           <p className="time-text">{marker.time}</p>
                         </div>
-                        <img src={marker.photo} />
+                        <img className="profile" src={marker.photo} />
                       </div>
                       <div className="description">
                         <p>{marker.description}</p>
@@ -290,7 +290,7 @@ export const MapGoogle = ({ name, photo }) => {
                       ) : (
                         <div className="div-for-button2">
                           <button
-                            className="buttonBackReg"
+                            className="create-event-button2 "
                             onClick={() => handleDeleteMarker(marker._id)}
                           >
                             Delete
