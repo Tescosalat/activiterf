@@ -1,16 +1,22 @@
-import jwt from "jsonwebtoken"
-import dotenv from "dotenv"
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
-dotenv.config()
+dotenv.config();
 
-export const getDataFromToken = (request) => {
+export const getDataFromToken = async (request) => {
   try {
-    const token = request.cookies.get("token")?.value || ""
+    const token = request.cookies.get("token")?.value;
     console.log("Token retrieved:", token);
-    const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET)
+
+    if (!token) {
+      throw new Error("Token not found");
+    }
+
+    const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
     console.log("Decoded token:", decodedToken);
-    return decodedToken.id
+    return decodedToken.id;
   } catch (error) {
-    console.log("token error")
+    console.error("Error retrieving token:", error);
+    throw error; // Re-throw the error to be handled by the calling function
   }
-}
+};
