@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { io } from "socket.io-client"
 import { useRouter } from "next/navigation"
 
-const socket = io()
+const socket = io("https://activ-server-bxic.onrender.com")
 
 export const ListOfActivity = ({ markers, name }) => {
   const router = useRouter()

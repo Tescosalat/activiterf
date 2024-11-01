@@ -5,7 +5,7 @@ import { io } from "socket.io-client"
 import { LuSend } from "react-icons/lu"
 import axios from "axios"
 
-const socket = io()
+const socket = io("https://activ-server-bxic.onrender.com")
 
 const timeStampFunction = (time) => {
   if (!!time) {

@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation"
 import { usePathname } from "next/navigation"
 import axios from "axios"
 
-const socket = io()
+const socket = io("https://activ-server-bxic.onrender.com")
 
 export const ChatMenu = ({ name }) => {
   const [isConnected, setIsConnected] = useState(false)

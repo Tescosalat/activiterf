@@ -28,7 +28,7 @@ import axios from "axios"
 import { io } from "socket.io-client"
 import { useRouter } from "next/navigation"
 
-const socket = io()
+const socket = io("https://activ-server-bxic.onrender.com")
 
 export const MapGoogle = ({ name, photo }) => {
   const router = useRouter()
